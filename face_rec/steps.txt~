@@ -1,0 +1,18 @@
+cd /home/priyaman/face_rec
+python py_server.py
+#images stored at /face_rec
+find /home/priyaman/face_rec/face_recognition/images/ -printf "%p\n" | grep .jpg | sort -d > filexlist.txt
+#file list stored at /face_rec
+cp filexlist.txt face_recognition/
+#crop faces
+perl /home/priyaman/face_rec/face_recognition/extractfaces/generate_traindata.pl
+#generate image_list
+find /home/priyaman/face_rec/face_recognition/extractfaces/faces/ -printf "%p\n" | grep .jpg | sort -d > image_list.txt
+#add labels
+cd train_recognizer
+./train ../image_list.txt new_dir/
+
+
+
+
+
